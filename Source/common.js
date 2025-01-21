@@ -967,3 +967,15 @@ function setJson() {
     json(tags, triggers, eventVariables, fullVariables);
 }
 
+function contactUs() {
+    const url = document.location.pathname;
+    console.log(url);
+    if (url.includes('Project_DataInspector')) {
+      window.open('https://github.com/amazing86400/Project_WEB_DataInspector');
+    } else if (url.includes('Project_WEB_GATester')) {
+      window.open('https://github.com/amazing86400/Project_WEB_GATester');
+    } else if (url.includes('GTMgenerator')) {
+      window.open('https://github.com/amazing86400/Project_WEB_GTMgenerator');
+    }
+  }
+
