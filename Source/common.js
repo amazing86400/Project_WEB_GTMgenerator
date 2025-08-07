@@ -178,6 +178,7 @@ function editorOpen() {
         </div>
     </div>`
     )
+
     editor.classList.toggle('open');
     editor_backgroud.classList.toggle('open');
     document.body.style.overflow = "hidden";
@@ -188,9 +189,9 @@ function editorOpen() {
 
     // 이벤트 변수가 이전에 설정 되어있을 때 select option에 설정된 이벤트 변수 출력
     const uniqueEventVariableNames = new Set();
-    if (tags) {
-        for (i of tags) {
-            const eventVariableName = i.eventVariable.eventVariableName;
+    if (eventVariables) {
+        for (i of eventVariables) {
+            const eventVariableName = i.eventVariableName;
             if (eventVariableName && !uniqueEventVariableNames.has(eventVariableName)) {
                 eventVariable.insertAdjacentHTML('beforeend',`<option value="${eventVariableName}">${eventVariableName}</option>`);
                 uniqueEventVariableNames.add(eventVariableName);
@@ -374,12 +375,20 @@ function setData() {
         let eventVariable;
         // 새로 만들 경우
         if (document.getElementById('eventVariable').value == 'new') {
-            eventVariable = {
-                eventVariableName: document.getElementById('variableName').value,
-                eventSetting: eventArr,
-                userSetting: userArr
+            let variableName = document.getElementById('variableName').value;
+            // 중복 여부 확인
+            const isExist = eventVariables.some(item => item.eventVariableName === variableName);
+            if (!isExist) {
+                eventVariable = {
+                    eventVariableName: variableName,
+                    eventSetting: eventArr,
+                    userSetting: userArr
+                }
+                eventVariables.push(eventVariable);
+            } else {
+                openDialog("dupValue", "이벤트 변수");
+                return false;
             }
-            eventVariables.push(eventVariable);
         // 기존 이벤트 변수를 사용할 경우
         } else {
             if (document.getElementById('eventVariable').value) {
