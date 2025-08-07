@@ -43,15 +43,24 @@ function addUser() {
 //행 추가 버튼 클릭 시 이벤트 매개변수 input태그 생성함수
 function addEventInput() {
     const eventParameter = document.getElementById('event_parameter');
+    const existingInputs = eventParameter.querySelectorAll('[id^="test"]');
     inputNo += 1
-    eventParameter.insertAdjacentHTML('beforeend', `<div id='test${inputNo}'><input type='text' name="ep_key" class='form_input'><input type='text' name="ep_value" class='form_input'><i class='remove_button' onclick='deleteInput(${inputNo})'></i></div>`)
+
+    const keyValue = existingInputs.length === 0 ? 'page_title' : '';
+    const valueValue = existingInputs.length === 0 ? 'title' : '';
+
+    eventParameter.insertAdjacentHTML('beforeend', `<div id='test${inputNo}'><input type='text' name="ep_key" class='form_input' value="${keyValue}"><input type='text' name="ep_value" class='form_input' value="${valueValue}"><i class='remove_button' onclick='deleteInput(${inputNo})'></i></div>`)
 }
 
 //행 추가 버튼 클릭 시 사용자 속성 input태그 생성함수
 function addUserInput() {
-    const userParameter = document.getElementById('user_property')
+    const userParameter = document.getElementById('user_property');
+    const existingInputs = userParameter.querySelectorAll('[id^="test"]');
     inputNo += 1
-    userParameter.insertAdjacentHTML('beforeend', `<div id='test${inputNo}'><input type='text' name="up_key" class='form_input'><input type='text' name="up_value" class='form_input'><i class='remove_button' onclick='deleteInput(${inputNo})'></i></div>`)
+
+    const keyValue = existingInputs.length === 0 ? 'up_cid' : '';
+    const valueValue = existingInputs.length === 0 ? '##up_cid' : '';
+    userParameter.insertAdjacentHTML('beforeend', `<div id='test${inputNo}'><input type='text' name="up_key" class='form_input' value="${keyValue}"><input type='text' name="up_value" class='form_input' value="${valueValue}"><i class='remove_button' onclick='deleteInput(${inputNo})'></i></div>`)
 }
 
 //-버튼 클릭 시 해당 input태그 삭제 해주는 함수
@@ -241,7 +250,7 @@ function changeTagType() {
                 <div id="form_measurementId"></div>
                 <div id="form_eventName">
                     <div class="caption">이벤트 이름</div>
-                    <input type="text" class="form_input" id="event_name">
+                    <input type="text" class="form_input" id="event_name" value="{{event_name}}">
                 </div>
                 <div class="caption">전자상거래</div>
                 <input type="checkbox" id="isEcommerce" value="true">
